@@ -28,7 +28,7 @@ Without this, some DLL loads fail silently.
 
 Your mp4 must have audio streams!
 
-for %i in (*.mp4) do ffprobe "%i" | findstr /r /c:"Audio:"
+`for %i in (*.mp4) do ffprobe "%i" | findstr /r /c:"Audio:"`
 
 ### Assumes ffmpeg in path
 
