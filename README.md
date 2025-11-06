@@ -1,4 +1,4 @@
-```
+
 # Whisper GPU Transcription Setup (Windows Native)
 A complete working reference for setting up **faster-whisper (large-v3)** on **Windows with CUDA GPU acceleration**, verified on RTX 3080 with CUDA 12.9 and cuDNN 9.14.
 
@@ -27,9 +27,9 @@ for %i in (*.mp4) do ffprobe "%i" | findstr /r /c:"Audio:"
 Whisper requires proper audio stream decoding. FFmpeg handles audio demux, resample, silence, VFR, and codecs.
 
 Required executables:
-C:\ffmpeg\bin\ffmpeg.exe
-C:\ffmpeg\bin\ffprobe.exe
-C:\ffmpeg\bin\ffplay.exe (optional)
+- C:\ffmpeg\bin\ffmpeg.exe
+- C:\ffmpeg\bin\ffprobe.exe
+- C:\ffmpeg\bin\ffplay.exe (optional)
 
 
 ### FFmpeg Windows Download
@@ -49,15 +49,15 @@ C:\ffmpeg\bin in PATH
 ### Verify FFmpeg Works
 
 Open terminal:
-ffmpeg -version
-ffprobe -version
+`ffmpeg -version`
+`ffprobe -version`
 
 If version prints successfully, PATH resolution is correct.
 
 --------------------------------------------------------------------
 
 ## Folder Structure Overview (Updated With FFmpeg)
-
+```
 C:\
 ├── ffmpeg\
 │   └── bin\
@@ -92,7 +92,7 @@ C:\
                 │   └── others...
                 ├── lib\
                 └── include\
-
+```
 
 ----------------------------------------------------------------------
 ## 1. GPU Driver & Toolkit
@@ -100,8 +100,9 @@ C:\
 ### **Verify NVIDIA GPU**
 Confirm GPU is visible, driver around 581.xx or newer.
 
-nvidia-smi
+`nvidia-smi`
 
+```
 +-----------------------------------------------------------------------------------------+
 | NVIDIA-SMI 581.29                 Driver Version: 581.29         CUDA Version: 13.0     |
 +-----------------------------------------+------------------------+----------------------+
@@ -113,14 +114,11 @@ nvidia-smi
 | 46%   58C    P2             96W /  320W |    4060MiB /  10240MiB |      2%      Default |
 |                                         |                        |                  N/A |
 +-----------------------------------------+------------------------+----------------------+
-
-+-----------------------------------------------------------------------------------------+
-| Processes:                                                                              |
-|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |
-|        ID   ID                                                               Usage      |
-|=========================================================================================|
+```
 
 ### Baseline GPU Temp, driver, model and usage if desired:
+
+```
 PS C:\Users\user> nvidia-smi --query-gpu=utilization.gpu,utilization.memory,memory.used,memory.total,temperature.gpu --format=csv -l 2
 utilization.gpu [%], utilization.memory [%], memory.used [MiB], memory.total [MiB], temperature.gpu
 3 %, 0 %, 686 MiB, 10240 MiB, 38
@@ -130,12 +128,16 @@ utilization.gpu [%], utilization.memory [%], memory.used [MiB], memory.total [Mi
 2 %, 0 %, 686 MiB, 10240 MiB, 39
 3 %, 0 %, 686 MiB, 10240 MiB, 40
 1 %, 0 %, 686 MiB, 10240 MiB, 40
+```
+
+```
 PS C:\Users\user> Get-CimInstance Win32_VideoController | Select-Object Name,DriverVersion,AdapterRAM
 
 Name                            DriverVersion   AdapterRAM
 ----                            -------------   ----------
 NVIDIA GeForce RTX 3080         32.0.15.8129    4293918720
 Microsoft Basic Display Adapter 10.0.19041.3636          0
+```
 
 ### Enforce Max Power
 NVIDIA Control Panel → Manage 3D Settings → Power Management Mode → Prefer Maximum Performance
@@ -155,17 +157,18 @@ C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.9\
 ## 2. Virtual Environment Setup
 
 **Create Folder & venv**
+```
 C:\> mkdir v
 C:\v> python -m venv whisper_transcribe
 C:\v\whisper_transcribe\Scripts\activate
-
+```
 **Install Required Packages**
-pip install faster-whisper colorama numpy torch nvidia-cudnn-cu12 nvidia-cublas-cu12
+`pip install faster-whisper colorama numpy torch nvidia-cudnn-cu12 nvidia-cublas-cu12`
 
 ## 3. cuDNN Installation (Hackery Method)
 
 **Install cuDNN via pip**
-pip install nvidia-cudnn-cu12
+`pip install nvidia-cudnn-cu12`
 
 This downloads cuDNN 9.x for CUDA 12 and places it in:
 C:\v\whisper_transcribe\Lib\site-packages\nvidia\cudnn\
@@ -198,6 +201,7 @@ models--Systran--faster-whisper-large-v3\
 ----------------------------------------------------------------------
 ## 5. Batch Script for Launch
 
+```
 **start.bat**
 @echo off
 set HUGGINGFACE_HUB_CACHE=C:\models
@@ -206,7 +210,7 @@ cd \v\whisper_transcribe\
 call Scripts\activate.bat
 python main.py
 pause
-
+```
 ----------------------------------------------------------------------
 ## 6. Main Transcription Script (main.py)
 
@@ -228,11 +232,12 @@ BENCHMARK_THROUGHPUT = 3.00
 ## 7. Benchmarking and Predictive Runtime
 
 On first successful run:
+```
 Video Duration:      hh:mm:ss
 Processing Time:     hh:mm:ss
 Throughput:          X.XXx (video sec per wall sec)
 Benchmark Suggest:   Use BENCHMARK_THROUGHPUT=X.XX
-
+```
 Update this constant in main.py for accurate ETA on future videos.
 
 Example:
