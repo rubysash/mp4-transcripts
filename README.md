@@ -1,6 +1,14 @@
 
+
+
 # Whisper GPU Transcription Setup (Windows Native)
 A complete working reference for setting up **faster-whisper (large-v3)** on **Windows with CUDA GPU acceleration**, verified on RTX 3080 with CUDA 12.9 and cuDNN 9.14.
+
+## TLDR
+
+- you need ffmpeg, downloaded somewhere
+- you need a powerful gpu to get the transcripts at 6x speed
+- these instructions suck
 
 
 ## Prerequisites
