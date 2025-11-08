@@ -2,7 +2,10 @@
 
 
 # Whisper GPU Transcription Setup (Windows Native)
+
 A complete working reference for setting up **faster-whisper (large-v3)** on **Windows with CUDA GPU acceleration**, verified on RTX 3080 with CUDA 12.9 and cuDNN 9.14.
+
+This is designed to batch process multiple files.     Look at the "transcriber" repo for clean gui that does urls and local files, but 1 at a time.   It's more intuitive and robust.
 
 ## TLDR
 
