@@ -296,7 +296,7 @@ Expected path: ...CUDA\v12.9\bin\cudnn_ops64_9.dll
 - Model: large-v3
 
 ----------------------------------------------------------------------
-## 1`. Example Session Output
+## 11. Example Session Output
 
 ```
 Processing: training_day.mp4  
