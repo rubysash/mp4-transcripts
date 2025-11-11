@@ -232,13 +232,14 @@ See `main.py` from this build:
 - Final throughput reporting
 
 Core Parameters:
+```
 device="cuda"
 compute_type="float16"
 model="large-v3"
 
 Benchmark constant is defined at the top:
 BENCHMARK_THROUGHPUT = 3.00
-
+```
 ----------------------------------------------------------------------
 ## 7. Benchmarking and Predictive Runtime
 
@@ -259,25 +260,27 @@ If Throughput = 3.00
 ## 8. Using the Tool
 
 **Input Folder**
-Place .mp4 files with audio in:
-C:\v\whisper_transcribe\videos_in
+- Place .mp4 files with audio in:
+`C:\v\whisper_transcribe\videos_in`
 
 **Output Folder**
-Text transcripts appear in:
-C:\v\whisper_transcribe\transcripts_out
+- Text transcripts appear in:
+`C:\v\whisper_transcribe\transcripts_out`
 
 **Run**
-Double-click start.bat
+- Double-click start.bat
 
 ----------------------------------------------------------------------
 ## 9. Verification Tests
 
 Check GPU availability in Python:
-python -c "import ctranslate2 as ct; print(ct.get_supported_compute_types('cuda'))"
-Expected output includes "float16"
+
+`python -c "import ctranslate2 as ct; print(ct.get_supported_compute_types('cuda'))"`
+
+Expected output includes `float16`
 
 Check cuDNN linkage:
-where cudnn_ops64_9.dll
+`where cudnn_ops64_9.dll`
 Expected path: ...CUDA\v12.9\bin\cudnn_ops64_9.dll
 
 ----------------------------------------------------------------------
@@ -293,16 +296,9 @@ Expected path: ...CUDA\v12.9\bin\cudnn_ops64_9.dll
 - Model: large-v3
 
 ----------------------------------------------------------------------
-## 11. Maintenance Tips
+## 1`. Example Session Output
 
-- If errors mention cudnn_ops64_9.dll missing, re-copy DLLs.
-- If no progress bar appears, ensure faster-whisper version supports streaming.
-- Reboot after any CUDA/cuDNN path changes.
-- Store your benchmark constant for consistency.
-
-----------------------------------------------------------------------
-## 12. Example Session Output
-
+```
 Processing: training_day.mp4  
 Predicted Runtime: 0:47:02  
 Video Duration:    2:21:06  
@@ -313,13 +309,15 @@ Processing Time:     0:47:00
 Throughput:          3.00x (video sec per wall sec)  
 Benchmark Suggest:   Use BENCHMARK_THROUGHPUT=3.00  
 -----------------------------------------  
-
+```
 ----------------------------------------------------------------------
 ## Summary
 
 This setup yields a **stable, native GPU-accelerated transcription system** for large-v3 whisper on Windows.  
+
 Predictive benchmarking keeps future job times accurate without manual tuning.  
-Once installed, you can process any number of videos just by dropping them into `videos_in`.
+
+Once installed, you can process any number of videos just by dropping them into `videos_in` and then running the script.
 
 End of Setup Guide.
 ```
